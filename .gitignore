@@ -17,3 +17,9 @@ riderModule.iml
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+/.idea/.idea.YouTubeDownloader/.idea/.gitignore
+/app.manifest
+/.idea/.idea.YouTubeDownloader/.idea/avalonia.xml
+/.idea/.idea.YouTubeDownloader/.idea/encodings.xml
+/.idea/.idea.YouTubeDownloader/.idea/indexLayout.xml
+/.idea/.idea.YouTubeDownloader/.idea/vcs.xml
