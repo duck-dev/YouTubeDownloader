@@ -1,0 +1,96 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+        <!-- Window -->
+        
+        <Style Selector="Window">
+                <Setter Property="Background" Value="{DynamicResource MainBackground}"/>
+        </Style>
+        
+        <!-- Selectable -->
+        
+        <Style Selector=":is(InputElement).selectable-button:pointerover">
+                <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        
+        <Style Selector=":is(InputElement).selectable-button-effect">
+                <Setter Property="Transitions">
+                        <Transitions>
+                                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2"/>
+                        </Transitions>
+                </Setter>
+                <Setter Property="RenderTransform" Value="scale(1)"/>
+        </Style>
+        <Style Selector=":is(InputElement).selectable-button-effect:pointerover">
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="RenderTransform" Value="scale(0.95)"/>
+        </Style>
+        <Style Selector=":is(InputElement).selectable-button-effect:pressed">
+                <Setter Property="RenderTransform" Value="scale(0.90)"/>
+        </Style>
+        
+        <Style Selector=":is(InputElement).highlight-no-change:pointerover /template/ ContentPresenter">
+                <Setter Property="Background" Value="{TemplateBinding Background}"/>
+                <Setter Property="BorderBrush" Value="{TemplateBinding BorderBrush}"/>
+                <Setter Property="BorderThickness" Value="{TemplateBinding BorderThickness}"/>
+        </Style>
+        <Style Selector=":is(InputElement).highlight-no-change:pressed /template/ ContentPresenter">
+                <Setter Property="Background" Value="{TemplateBinding Background}"/>
+                <Setter Property="BorderBrush" Value="{TemplateBinding BorderBrush}"/>
+                <Setter Property="BorderThickness" Value="{TemplateBinding BorderThickness}"/>
+        </Style>
+        
+        <!-- ComboBox -->
+        
+        <Style Selector="ComboBox.highlight-no-change-combo:pointerover /template/ Border#Background">
+                <Setter Property="Background" Value="{TemplateBinding Background}"/>
+                <Setter Property="BorderBrush" Value="{TemplateBinding BorderBrush}"/>
+        </Style>
+        
+        <Style Selector="ComboBox.standard-combo-box /template/ PathIcon#DropDownGlyph">
+                <Setter Property="Width" Value="25"/>
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="Margin" Value="25"/>
+                <Setter Property="BorderThickness" Value="5"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource AppRed}"/>
+                <Setter Property="Foreground" Value="{DynamicResource AppRed}"/>
+                <Setter Property="Template">
+                        <ControlTemplate>
+                                <PathIcon x:Name="DropDownGlyph" UseLayoutRounding="False" IsHitTestVisible="False" 
+                                          Height="18" Width="18" Margin="0,0,20,0" BorderThickness="5"
+                                          BorderBrush="{DynamicResource AppRed}"
+                                          HorizontalAlignment="Right" VerticalAlignment="Center"
+                                          Foreground="{DynamicResource AppRed}"
+                                          Data="M1939 486L2029 576L1024 1581L19 576L109 486L1024 1401L1939 486Z"/>
+                        </ControlTemplate>
+                </Setter>
+        </Style>
+        
+        <!-- ScrollViewer -->
+        
+        <Style Selector="ScrollViewer[VerticalScrollBarVisibility=Visible].standard, ScrollViewer[VerticalScrollBarVisibility=Auto].standard">
+                <Setter Property="Padding" Value="0,0,26,0"/>
+        </Style>
+        <Style Selector="ScrollViewer[HorizontalScrollBarVisibility=Visible].standard, ScrollViewer[HorizontalScrollBarVisibility=Auto].standard">
+                <Setter Property="Padding" Value="0,0,0,26"/>
+        </Style>
+        
+        <!-- TextBox -->
+        
+        <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+                <Setter Property="BorderThickness" Value="{TemplateBinding BorderThickness}"/>
+        </Style>
+        
+        <!-- Notifications -->
+        
+        <Style Selector="NotificationCard /template/ Panel#PART_HeaderBar">
+                <Setter Property="Height" Value="6"/>
+        </Style>
+        
+        <!-- TabControl -->
+        
+        <Style Selector="TabItem:selected /template/ Border#PART_SelectedPipe">
+                <Setter Property="Background" Value="{DynamicResource AppRed}"/>
+        </Style>
+        
+</Styles>
