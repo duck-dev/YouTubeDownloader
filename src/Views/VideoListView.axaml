@@ -21,7 +21,7 @@
                     HotKey="Enter">
                 <Button.Template>
                     <ControlTemplate>
-                        <Image Source="/Assets/avalonia-logo.ico" Width="36" Height="36"/>
+                        <Image Source="/Assets/avalonia-logo.ico" Width="38" Height="38"/>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
