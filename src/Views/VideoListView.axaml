@@ -2,9 +2,57 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:YouTubeDownloader.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="YouTubeDownloader.Views.VideoListView">
+             x:Class="YouTubeDownloader.Views.VideoListView"
+             x:DataType="viewModels:VideoListViewModel">
     
+    <UserControl.DataContext>
+        <viewModels:VideoListViewModel/>
+    </UserControl.DataContext>
     
+    <Grid RowDefinitions="Auto,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,20,0,20">
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto" HorizontalAlignment="Stretch" Margin="20">
+            <TextBox Grid.Column="0" Watermark="Search..." Height="40" BorderBrush="{StaticResource OppositeAccent}"
+                     BorderThickness="1" Background="{StaticResource White}" CornerRadius="20"
+                     Text="{Binding SearchTerm}" Margin="0,0,20,0" 
+                     HorizontalAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <Button Grid.Column="1" Classes="selectable-button-effect" VerticalAlignment="Center" Command="{Binding Search}">
+                <Button.Template>
+                    <ControlTemplate>
+                        <Image Source="/Assets/avalonia-logo.ico" Width="36" Height="36"/>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+        <ScrollViewer Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Videos}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="Auto,*" HorizontalAlignment="Stretch" Margin="0,20">
+                            <Image Grid.Column="0" Source="{Binding ThumbnailImage}" Margin="0,0,15,0"
+                                   Stretch="Uniform" Height="140"/>
+                            <Grid Grid.Column="1" RowDefinitions="Auto,Auto,Auto,Auto" VerticalAlignment="Stretch">
+                                <TextBlock Grid.Row="0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold" Margin="0,0,0,5"
+                                           Foreground="{StaticResource OppositeAccent}" Text="{Binding Title}"/>
+                                <TextBlock Grid.Row="1" Grid.Column="0" FontSize="14" Foreground="{StaticResource MainGrey}"
+                                           Text="{Binding FormattedTimeString}"/>
+                                <TextBlock Grid.Row="2" FontSize="14" Foreground="{StaticResource MainGrey}" Margin="0,15"
+                                           Text="{Binding ChannelName}"/>
+                                <TextBlock Grid.Row="3" FontSize="14" MaxLines="2" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
+                                           Foreground="{StaticResource MainGrey}" Text="{Binding Description}"/>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
     
 </UserControl>
