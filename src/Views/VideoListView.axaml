@@ -41,11 +41,12 @@
                                    Stretch="Uniform" Height="140"/>
                             <Grid Grid.Column="1" RowDefinitions="Auto,Auto,Auto,Auto" VerticalAlignment="Stretch">
                                 <TextBlock Grid.Row="0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold" Margin="0,0,0,5"
-                                           Foreground="{StaticResource OppositeAccent}" Text="{Binding Title}"/>
+                                           Foreground="{StaticResource OppositeAccent}" Text="{Binding Title}"
+                                           TextTrimming="CharacterEllipsis"/>
                                 <TextBlock Grid.Row="1" Grid.Column="0" FontSize="14" Foreground="{StaticResource MainGrey}"
-                                           Text="{Binding FormattedTimeString}"/>
+                                           Text="{Binding FormattedTimeString}" TextTrimming="CharacterEllipsis"/>
                                 <TextBlock Grid.Row="2" FontSize="14" Foreground="{StaticResource MainGrey}" Margin="0,15"
-                                           Text="{Binding ChannelName}"/>
+                                           Text="{Binding ChannelName}" TextTrimming="CharacterEllipsis"/>
                                 <TextBlock Grid.Row="3" FontSize="14" MaxLines="2" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
                                            Foreground="{StaticResource MainGrey}" Text="{Binding Description}"/>
                             </Grid>
