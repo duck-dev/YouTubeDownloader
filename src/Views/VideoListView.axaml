@@ -36,7 +36,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Grid ColumnDefinitions="Auto,*" HorizontalAlignment="Stretch" Margin="0,20">
+                        <Grid ColumnDefinitions="Auto,*" HorizontalAlignment="Stretch" Margin="0,20" ToolTip.Tip="{Binding VideoUrl}">
                             <Image Grid.Column="0" Source="{Binding ThumbnailImage}" Margin="0,0,15,0"
                                    Stretch="Uniform" Height="140"/>
                             <Grid Grid.Column="1" RowDefinitions="Auto,Auto,Auto,Auto" VerticalAlignment="Stretch">
