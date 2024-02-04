@@ -1,15 +1,22 @@
 using System;
+using System.Globalization;
 using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Styling;
+using Humanizer;
+using Humanizer.Localisation;
 
 namespace YouTubeDownloader.UtilityCollection;
 
 public static partial class Utilities
 {
+    internal const string AssetsPath = "avares://YouTubeDownloader/Assets/";
+    
     /// <summary>
     /// Log a message to the debug output (for debugging purposes).
     /// </summary>
@@ -74,4 +81,25 @@ public static partial class Utilities
         return asset is null ? null : new Bitmap(asset);
     }
 
+    internal static async Task<Bitmap?> DownloadImage(string url)
+    {
+        using var client = new HttpClient();
+        try
+        {
+            byte[] result = await client.GetByteArrayAsync(url);
+            using var stream = new MemoryStream(result);
+            return new Bitmap(new MemoryStream(result));
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return null;
+        }
+    }
+
+    internal static string FormatTimeDifference(DateTimeOffset dateTime)
+    {
+        TimeSpan span = DateTimeOffset.Now.Subtract(dateTime);
+        return $"{span.Humanize(maxUnit: TimeUnit.Year, culture: CultureInfo.InvariantCulture)} ago";
+    }
 }
