@@ -12,6 +12,8 @@ namespace YouTubeDownloader.Models;
 public class YouTubeVideo : INotifyPropertyChangedHelper
 {
     public event PropertyChangedEventHandler? PropertyChanged;
+
+    private const string YouTubeLink = "https://www.youtube.com/watch?v=";
     
     private readonly Bitmap? _defaultThumbnail = Utilities.CreateImage(Path.Combine(Utilities.AssetsPath, "avalonia-logo.ico")); // TODO: DefaultThumbnail.png
 
@@ -24,6 +26,9 @@ public class YouTubeVideo : INotifyPropertyChangedHelper
     public YouTubeVideo(SearchResult searchResult)
     {
         SearchResultSnippet snippet = searchResult.Snippet;
+
+        string id = searchResult.Id.VideoId;
+        VideoUrl = $"{YouTubeLink}{id}";
         
         Title = snippet.Title;
         Description = snippet.Description;
@@ -36,7 +41,8 @@ public class YouTubeVideo : INotifyPropertyChangedHelper
         Task.Run(async () =>
         {
             Bitmap? result = await Utilities.DownloadImage(snippet.Thumbnails.Default__.Url);
-            ThumbnailImage = result;
+            if(result is not null)
+                ThumbnailImage = result;
         });
     }
 
@@ -89,6 +95,8 @@ public class YouTubeVideo : INotifyPropertyChangedHelper
             NotifyPropertyChanged();
         }
     }
+    
+    internal string VideoUrl { get; }
 
     public void NotifyPropertyChanged(string propertyName = "") 
         => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
