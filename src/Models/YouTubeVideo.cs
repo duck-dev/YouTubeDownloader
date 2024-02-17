@@ -1,11 +1,14 @@
 using System;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
 using Google.Apis.YouTube.v3.Data;
+using YouTubeDownloader.Enums;
 using YouTubeDownloader.Interfaces;
 using YouTubeDownloader.UtilityCollection;
+using YouTubeDownloader.ViewModels;
 
 namespace YouTubeDownloader.Models;
 
@@ -22,6 +25,10 @@ public class YouTubeVideo : INotifyPropertyChangedHelper
     private string _channelName = string.Empty;
     private string _formattedTimeString = string.Empty;
     private Bitmap? _thumbnailImage;
+
+    private bool _addedToQueue;
+    private bool _isAudioQueued;
+    private bool _isVideoQueued;
     
     public YouTubeVideo(SearchResult searchResult)
     {
@@ -97,7 +104,56 @@ public class YouTubeVideo : INotifyPropertyChangedHelper
     }
     
     internal string VideoUrl { get; }
+    
+    internal bool IsAudioQueued
+    {
+        get => _isAudioQueued;
+        set
+        {
+            _isAudioQueued = value;
+            NotifyPropertyChanged();
+        }
+    }
+    
+    internal bool IsVideoQueued
+    {
+        get => _isVideoQueued;
+        set
+        {
+            _isVideoQueued = value;
+            NotifyPropertyChanged();
+        }
+    }
 
     public void NotifyPropertyChanged(string propertyName = "") 
         => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    
+    internal void AddToQueue(DownloadType type)
+    {
+        if (QueueViewModel.Instance is not { } queueInstance)
+            return;
+        
+        var queue = queueInstance.Queue;
+        if (_addedToQueue)
+        {
+            QueueElement element = queue.First(x => ReferenceEquals(x.Video, this));
+            if (!element.Type.HasFlag(type))
+                element.Type |= type;
+        }
+        else
+        {
+            queue.Add(new QueueElement(this, type));
+        }
+        
+        _addedToQueue = true;
+        ToggleQueued(true, type);
+    }
+
+    internal void ToggleQueued(bool isQueued, DownloadType type)
+    {
+        if (type.HasFlag(DownloadType.Audio))
+            IsAudioQueued = isQueued;
+        if (type.HasFlag(DownloadType.Video))
+            IsVideoQueued = isQueued;
+    }
 }
