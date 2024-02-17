@@ -1,0 +1,62 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:YouTubeDownloader.Models"
+             xmlns:elements="clr-namespace:YouTubeDownloader.Views.Elements"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="YouTubeDownloader.Views.Elements.YouTubeVideoView"
+             x:DataType="models:YouTubeVideo">
+    
+    <Grid ColumnDefinitions="Auto,*,Auto" HorizontalAlignment="Stretch" Margin="0,20,5,20"
+          ToolTip.Tip="{Binding VideoUrl}">
+        <Image Grid.Column="0" Source="{Binding ThumbnailImage}" Margin="0,0,15,0"
+               Stretch="Uniform" Height="140"/>
+        <Grid Grid.Column="1" RowDefinitions="Auto,Auto,Auto,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <TextBlock Grid.Row="0" FontSize="22" FontWeight="Bold" Margin="0,0,0,5" TextWrapping="NoWrap"
+                       Foreground="{StaticResource OppositeAccent}" Text="{Binding Title}"
+                       TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" FontSize="14" Foreground="{StaticResource MainGrey}"
+                       Text="{Binding FormattedTimeString}" TextTrimming="CharacterEllipsis"
+                       HorizontalAlignment="Stretch"/>
+            <TextBlock Grid.Row="2" FontSize="14" Foreground="{StaticResource MainGrey}"
+                       Margin="0,15" Text="{Binding ChannelName}"
+                       TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch"/>
+            <TextBlock Grid.Row="3" FontSize="14" MaxLines="2" TextWrapping="WrapWithOverflow"
+                       TextTrimming="CharacterEllipsis" Text="{Binding Description}"
+                       Foreground="{StaticResource MainGrey}" HorizontalAlignment="Stretch"/>
+        </Grid>
+        <Grid Grid.Column="2" ColumnDefinitions="Auto,Auto" VerticalAlignment="Stretch" Margin="20,0,0,0"
+              IsVisible="{Binding $parent[elements:YouTubeVideoView].ShowAddQueueButtons}">
+            <Button Grid.Column="0" Classes="selectable-button-effect" VerticalAlignment="Center"
+                    Command="{Binding AddToQueue}" CommandParameter="Audio"
+                    Margin="0,0,10,0" IsEnabled="{Binding !IsAudioQueued}">
+                <Button.Template>
+                    <ControlTemplate>
+                        <Panel>
+                            <Image Source="/Assets/avalonia-logo.ico" Width="36" Height="36"
+                                   IsVisible="{Binding !IsAudioQueued}"/> <!-- TODO: Add AUDIO to queue icon -->
+                            <Image Source="/Assets/avalonia-logo.ico" Width="36" Height="36"
+                                   IsVisible="{Binding IsAudioQueued}"/> <!-- TODO: Audio added to queue icon -->
+                        </Panel>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Grid.Column="1" Classes="selectable-button-effect" VerticalAlignment="Center"
+                    Command="{Binding AddToQueue}" CommandParameter="Video"
+                    IsEnabled="{Binding !IsVideoQueued}">
+                <Button.Template>
+                    <ControlTemplate>
+                        <Panel>
+                            <Image Source="/Assets/avalonia-logo.ico" Width="36" Height="36"
+                                   IsVisible="{Binding !IsVideoQueued}"/> <!-- TODO: Add VIDEO to queue icon -->
+                            <Image Source="/Assets/avalonia-logo.ico" Width="36" Height="36"
+                                   IsVisible="{Binding IsVideoQueued}"/> <!-- TODO: Video added to queue icon -->
+                        </Panel>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+    </Grid>
+
+</UserControl>
