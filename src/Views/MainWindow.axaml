@@ -12,7 +12,7 @@
         
         <Grid ColumnDefinitions="*,Auto,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <views:VideoListView Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                <Rectangle Grid.Column="1" Fill="{StaticResource MainGrey}" Width="2" Margin="20,10,0,90"
+                <Rectangle Grid.Column="1" Fill="{StaticResource MainGrey}" Width="2" Margin="20,10,0,10"
                            HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
                 <views:QueueView Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </Grid>
